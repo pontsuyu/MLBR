@@ -1,9 +1,11 @@
 #' Get game_ids in specified years
 #'
-#' @param start_year integer. Over 2008
+#' @param start_year integer. Over 2008.
 #' @param end_year integer.
-#' @import tidyverse
+#' @import dplyr
+#' @import tidyr
 #' @import rvest
+#' @import stringr
 #' @import foreach
 #'
 #' @return game_id vector

@@ -1,0 +1,24 @@
+Package: statcastr
+Title: Functions for acquiring and analyzing statcast data
+Version: 0.0.1
+Author: Hiroyuki Tsuyuzaki <wu.pe.s2.47@gmail.com>
+Maintainer: Hiroyuki Tsuyuzaki <wu.pe.s2.47@gmail.com>
+Description: Provides numerous functions for acquiring and analyzing 
+             statcast data.
+Depends:
+    R (>= 3.5.0)
+Imports:
+    dplyr,
+    tidyr,
+    pitchRx2,
+    XML,
+    xml2,
+    magrittr
+License: MIT
+BugReports: https://github.com/pontsuyu/statcastr/issues
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
