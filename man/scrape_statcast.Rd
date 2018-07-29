@@ -2,23 +2,23 @@
 % Please edit documentation in R/scrape_statcast.R
 \name{scrape_statcast}
 \alias{scrape_statcast}
-\title{Query Statcast and PITCHf/x Data for data from baseballsavant.mlb.com}
+\title{Scrape statcast data}
 \usage{
 scrape_statcast(start_date, end_date, pit_bat)
 }
 \arguments{
-\item{start_date}{Date of first game for which you want data. Format must be in YYYY-MM-DD format.}
+\item{start_date}{Date of first game you want. Format must be in YYYY-MM-DD format.}
 
-\item{end_date}{Date of last game for which you want data. Format must be in YYYY-MM-DD format.}
+\item{end_date}{Date of last game you want. Format must be in YYYY-MM-DD format.}
 
 \item{pit_bat}{Choose pitcher or batter}
 }
 \description{
-This function allows you to query Statcast and PITCHf/x data as provided on baseballsavant.mlb.com and have that data returned as a dataframe.
+Scrape statcast data
 }
 \examples{
 \dontrun{
-scrape_statcast(start_date = "2016-04-06", end_date = "2016-04-15", pit_bat = 'pitcher')
-scrape_statcast(start_date = "2016-04-06", end_date = "2016-04-15", pit_bat = 'batter')
+scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15", pit_bat = 'pitcher')
+scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15", pit_bat = 'batter')
 }
 }

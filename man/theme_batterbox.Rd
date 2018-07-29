@@ -2,21 +2,13 @@
 % Please edit documentation in R/theme_batterbox.R
 \name{theme_batterbox}
 \alias{theme_batterbox}
-\title{Adds batter box for use in a ggplot plot.}
+\title{Add batter box layer.}
 \usage{
 theme_batterbox()
 }
 \value{
-list of ggplot geoms to be added to a ggplot plot
+ggplot theme
 }
 \description{
-Adds batter box for use in a ggplot plot.
-}
-\examples{
-library(ggplot2)
-shots_data <- data.frame(x = c(90, 85, 82, 78, 83),
-                         y = c(43, 40, 52, 56, 44))
-ggplot(shots_data, aes(x = x, y = y)) +
-  theme_batterbox()
-
+Add batter box layer.
 }

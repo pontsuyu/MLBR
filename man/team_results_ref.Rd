@@ -2,7 +2,7 @@
 % Please edit documentation in R/team_results_ref.R
 \name{team_results_ref}
 \alias{team_results_ref}
-\title{Scrape Team Results}
+\title{This function allows you to scrape schedule and results for a major league team from Baseball-Reference.com}
 \usage{
 team_results_ref(Tm, year)
 }

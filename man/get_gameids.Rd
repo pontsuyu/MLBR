@@ -4,7 +4,7 @@
 \alias{get_gameids}
 \title{Get game_ids in specified years}
 \usage{
-get_gameids(start_year = 2018L, end_year = 2018L)
+get_gameids(start_year = year(Sys.Date()), end_year = year(Sys.Date()))
 }
 \arguments{
 \item{start_year}{integer. Over 2008.}
@@ -12,7 +12,7 @@ get_gameids(start_year = 2018L, end_year = 2018L)
 \item{end_year}{integer.}
 }
 \value{
-game_id vector
+game_ids vector
 }
 \description{
 Get game_ids in specified years

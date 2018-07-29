@@ -1,22 +1,19 @@
-#' Query Statcast and PITCHf/x Data for data from baseballsavant.mlb.com
+#' Scrape statcast data
 #'
-#' This function allows you to query Statcast and PITCHf/x data as provided on baseballsavant.mlb.com and have that data returned as a dataframe.
-#' @param start_date Date of first game for which you want data. Format must be in YYYY-MM-DD format.
-#' @param end_date Date of last game for which you want data. Format must be in YYYY-MM-DD format.
+#' @param start_date Date of first game you want. Format must be in YYYY-MM-DD format.
+#' @param end_date Date of last game you want. Format must be in YYYY-MM-DD format.
 #' @param pit_bat Choose pitcher or batter
 #' 
 #' @import dplyr
-#' @import data.table
+#' @importFrom magrittr %>%
 #' @importFrom foreach foreach %do%
 #' @export
 #' @examples
 #' \dontrun{
-#' scrape_statcast(start_date = "2016-04-06", end_date = "2016-04-15", pit_bat = 'pitcher')
-#' scrape_statcast(start_date = "2016-04-06", end_date = "2016-04-15", pit_bat = 'batter')
+#' scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15", pit_bat = 'pitcher')
+#' scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15", pit_bat = 'batter')
 #' }
-
 scrape_statcast <- function(start_date, end_date, pit_bat) {
-
   if(!pit_bat %in% c("pitcher", "batter"))
     stop("pit_bat must be 'pitcher' or 'batter'.")
   if(!is.character(start_date) | !is.character(end_date))
@@ -36,7 +33,7 @@ scrape_statcast <- function(start_date, end_date, pit_bat) {
   res <- foreach(i = 1:min(length(start_days), length(end_days))) %do%
            {
              url <- paste0("https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=", year, "%7C&hfSit=&player_type=", pit_bat, "&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=", start_days[i], "&game_date_lt=", end_days[i], "&team=&position=&hfRO=&home_road=&&hfFlag=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=pitches&player_event_sort=h_launch_speed&sort_order=desc&min_abs=0&type=details&")
-             fread(url, showProgress = F, stringsAsFactors = F, data.table = F) %>% 
+             data.table::fread(url, showProgress = F, stringsAsFactors = F, data.table = F) %>% 
                .[NROW(.):1,]
            }
   processed_payload <- lapply(res, process_statcast_payload)
@@ -70,9 +67,9 @@ process_statcast_payload <- function(payload) {
   payload$post_home_score	<- as.numeric(payload$post_home_score)
   payload$post_bat_score <- as.numeric(payload$post_bat_score)
   payload$post_fld_score <- as.numeric(payload$post_fld_score)
-  payload$barrel <- with(payload, (launch_angle <= 50 &
-                                   launch_speed >= 98 & 
-                                   launch_speed * 1.5 - launch_angle >= 11 & 
-                                   launch_speed + launch_angle >= 124) * 1)
+  # payload$barrel <- with(payload, (launch_angle <= 50 &
+  #                                  launch_speed >= 98 & 
+  #                                  launch_speed * 1.5 - launch_angle >= 11 & 
+  #                                  launch_speed + launch_angle >= 124) * 1)
   return(payload)
 }
