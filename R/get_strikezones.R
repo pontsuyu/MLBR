@@ -15,10 +15,12 @@ get_strikezones <- function(data) {
   for(i in c("sz_top", "sz_bot")) data[,i] <- as.numeric(data[,i])
   bounds <- data %>% 
     filter(complete.cases(.[,c("sz_top", "sz_bot")])) %>% 
-    mutate(sz_top = sz_top + sz_bot) %>%
+    # mutate(sz_top = sz_top + sz_bot) %>%
     group_by(stand) %>% 
     summarise(Top = mean(sz_top) * 30.48, 
-              Bottom = mean(sz_bot) * 30.48) %>% 
+              # Bottom = mean(sz_bot) * 30.48
+              Bottom = 0
+              ) %>% 
     as.data.frame
   righty <- as.numeric(bounds$stand == "R") * 30.48
   lefty <- as.numeric(bounds$stand == "L") * 30.48

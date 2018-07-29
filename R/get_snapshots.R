@@ -29,8 +29,8 @@ get_snapshots <- function(data, interval = 0.01) {
   npitches <- NROW(data)
   t.matrix <- matrix(rep(0:(nplots - 1)*interval, times = npitches), byrow = TRUE, nrow = npitches)
   #Restrict time if ball already crossed home plate
-  # t <- pmin(t.matrix, times)
-  t <- ifelse(t.matrix<times, t.matrix, NA)
+  t <- pmin(t.matrix, times)
+  # t <- ifelse(t.matrix<times, t.matrix, NA)
   #Repeat the parameters for the total amount of plots needed
   snapshots <- array(rep(c(parameters, recursive = TRUE), nplots), dim = c(dim(parameters), nplots))
   #Horizontal location at time t

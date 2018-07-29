@@ -1,20 +1,18 @@
 Package: statcastr
 Title: Functions for scraping and analyzing statcast data
-Version: 0.1.0
+Version: 1.0.0
 Author: Hiroyuki Tsuyuzaki <wu.pe.s2.47@gmail.com>
 Maintainer: Hiroyuki Tsuyuzaki <wu.pe.s2.47@gmail.com>
 Description: Functions for scraping and analyzing statcast data.
 Depends:
-    R (>= 3.5.0)
-Imports:
+    R (>= 3.5.0),
     dplyr,
     tidyr,
     data.table,
     magrittr,
     XML,
-    xml2
-Suggests:
-    pitchRx2
+    xml2,
+    ggplot2
 License: MIT
 BugReports: https://github.com/pontsuyu/statcastr/issues
 LazyData: true

@@ -38,7 +38,8 @@ scrape_statcast <- function(start_date, end_date, pit_bat) {
            }
   processed_payload <- lapply(res, process_statcast_payload)
   return(do.call("rbind", processed_payload) %>% 
-    mutate(pitch_n = row_number()))
+           mutate(pitch_n = row_number()) %>% 
+           as.data.frame)
 }
 
 process_statcast_payload <- function(payload) {
