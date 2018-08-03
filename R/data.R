@@ -1,20 +1,5 @@
 #' Dataset
 #'
-#' @title A data set of game id
-#' @description A data set of game id
-#'
-#' @docType data
-#' @keywords datasets
-#'
-#' @name game_ids
-#' @usage data(game_ids)
-#' @format A vector with 35,180 elements.
-"game_ids"
-
-
-
-#' Dataset
-#'
 #' @title A data set of player id
 #' @description A data set of player id
 #'
