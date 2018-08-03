@@ -18,8 +18,7 @@ get_strikezones <- function(data) {
     # mutate(sz_top = sz_top + sz_bot) %>%
     group_by(stand) %>% 
     summarise(Top = mean(sz_top) * 30.48, 
-              # Bottom = mean(sz_bot) * 30.48
-              Bottom = 0
+              Bottom = mean(sz_bot) * 30.48
               ) %>% 
     as.data.frame
   righty <- as.numeric(bounds$stand == "R") * 30.48
