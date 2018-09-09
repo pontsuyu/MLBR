@@ -30,8 +30,10 @@ scrape_statcast <- function(start_date, end_date, pit_bat) {
   start_days <- as.character(days[1:length(days)%%7==1])
   end_days <- as.character(days[1:length(days)%%7==0])
   res <- list()
-  res <- foreach(i = 1:min(length(start_days), length(end_days))) %do%
+  n <- max(length(start_days), length(end_days))
+  res <- foreach(i = 1:n) %do%
            {
+             if(i==n) end_days[i] <- end_date
              url <- paste0("https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=", year, "%7C&hfSit=&player_type=", pit_bat, "&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=", start_days[i], "&game_date_lt=", end_days[i], "&team=&position=&hfRO=&home_road=&&hfFlag=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=pitches&player_event_sort=h_launch_speed&sort_order=desc&min_abs=0&type=details&")
              data.table::fread(url, showProgress = F, stringsAsFactors = F, data.table = F) %>% 
                .[NROW(.):1,]
