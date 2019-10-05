@@ -5,7 +5,7 @@
 #' @importFrom dplyr filter_ rename filter
 #' @importFrom xml2 read_html
 #' @importFrom rvest html_table
-#' @export
+#' 
 #' @examples
 #' team_results_ref("NYM", 2015)
 #' team_results_ref("TBR", 2008)

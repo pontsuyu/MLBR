@@ -3,8 +3,6 @@
 export(get_snapshots)
 export(get_strikezones)
 export(scrape_statcast)
-export(team_results_ref)
-export(theme_batterbox)
 import(dplyr)
 import(ggplot2)
 importFrom(dplyr,filter)

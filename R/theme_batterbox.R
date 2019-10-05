@@ -3,7 +3,7 @@
 #' @import ggplot2
 #' @return ggplot theme
 #'
-#' @export
+#' 
 #' 
 theme_batterbox <- function() {
   width <- 21.6
