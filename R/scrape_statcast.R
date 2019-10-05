@@ -20,8 +20,8 @@ scrape_statcast <- function(start_date, end_date, pit_bat) {
     stop("Please wrap your dates in quotations in 'yyyy-mm-dd' format.")
   if(as.Date(start_date)<="2015-03-01")
     warning("Some metrics such as Exit Velocity and Batted Ball Events have only been compiled since 2015.")
-  if(as.Date(start_date)<="2008-03-25").
-  stop("The data are limited to the 2008 MLB season and after.")
+  if(as.Date(start_date)<="2008-03-25")
+    stop("The data are limited to the 2008 MLB season and after.")
   if(as.Date(start_date)>as.Date(end_date))
     stop("The start date is later than the end date.")
   
