@@ -5,7 +5,7 @@ Author: Hiroyuki Tsuyuzaki <wu.pe.s2.47@gmail.com>
 Maintainer: Hiroyuki Tsuyuzaki <wu.pe.s2.47@gmail.com>
 Description: Functions for scraping and analyzing statcast data.
 Depends:
-    R,
+    R(>= 3.6.0),
     dplyr,
     tidyr,
     ggplot2,
