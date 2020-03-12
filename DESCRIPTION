@@ -16,5 +16,5 @@ Depends:
 License: MIT
 BugReports: https://github.com/pontsuyu/statcastr/issues
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 VignetteBuilder: knitr

@@ -2,7 +2,6 @@
 #'
 #' @param start_date Date of first game you want. Format must be in YYYY-MM-DD format.
 #' @param end_date Date of last game you want. Format must be in YYYY-MM-DD format.
-#' @param pit_bat Choose pitcher or batter
 #'
 #' @import dplyr
 #' @importFrom magrittr %>%
@@ -10,13 +9,10 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15", pit_bat = "pitcher")
-#' scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15", pit_bat = "batter")
+#' scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15")
+#' scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15")
 #' }
-scrape_statcast <- function(start_date, end_date, pit_bat) {
-  if (!pit_bat %in% c("pitcher", "batter")) {
-    stop("pit_bat must be 'pitcher' or 'batter'.")
-  }
+scrape_statcast <- function(start_date, end_date) {
   if (!is.character(start_date) | !is.character(end_date)) {
     stop("Please wrap your dates in quotations in 'yyyy-mm-dd' format.")
   }
@@ -39,7 +35,8 @@ scrape_statcast <- function(start_date, end_date, pit_bat) {
   res <- foreach(i = 1:n) %do% {
     if (i == n) end_days[i] <- end_date
     # url <- paste0("https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7C&hfC=&hfSea=", year, "%7C&hfSit=&player_type=", pit_bat, "&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&game_date_gt=", start_days[i], "&game_date_lt=", end_days[i], "&team=&position=&hfRO=&home_road=&&hfFlag=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=pitches&player_event_sort=h_launch_speed&sort_order=&min_abs=0&type=details&")
-    url <- paste0("https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7CPO%7CS%7C&hfC&hfSea=", year, "%7C&hfSit=&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&player_type=", pit_bat, "&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&game_date_gt=", start_days[i], "&game_date_lt=", end_days[i], "&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=pitches&player_event_sort=h_launch_speed&sort_order=desc&min_abs=0&type=details")
+    # url <- paste0("https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7CPO%7CS%7C&hfC&hfSea=", year, "%7C&hfSit=&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&player_type=", pit_bat, "&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&game_date_gt=", start_days[i], "&game_date_lt=", end_days[i], "&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=pitches&player_event_sort=h_launch_speed&sort_order=desc&min_abs=0&type=details")
+    url <- paste0("https://baseballsavant.mlb.com/statcast_search/csv?all=true&hfPT=&hfAB=&hfBBT=&hfPR=&hfZ=&stadium=&hfBBL=&hfNewZones=&hfGT=R%7CPO%7CS%7C&hfC&hfSea=", year, "%7C&hfSit=&hfOuts=&opponent=&pitcher_throws=&batter_stands=&hfSA=&player_type=&hfInfield=&team=&position=&hfOutfield=&hfRO=&home_road=&game_date_gt=", start_days[i], "&game_date_lt=", end_days[i], "&hfFlag=&hfPull=&metric_1=&hfInn=&min_pitches=0&min_results=0&group_by=name&sort_col=pitches&player_event_sort=h_launch_speed&sort_order=desc&min_abs=0&type=details")
     data.table::fread(url, showProgress = F, stringsAsFactors = F, data.table = F)
   }
   

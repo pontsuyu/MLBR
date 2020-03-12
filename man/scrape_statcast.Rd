@@ -4,21 +4,19 @@
 \alias{scrape_statcast}
 \title{Scrape statcast data}
 \usage{
-scrape_statcast(start_date, end_date, pit_bat)
+scrape_statcast(start_date, end_date)
 }
 \arguments{
 \item{start_date}{Date of first game you want. Format must be in YYYY-MM-DD format.}
 
 \item{end_date}{Date of last game you want. Format must be in YYYY-MM-DD format.}
-
-\item{pit_bat}{Choose pitcher or batter}
 }
 \description{
 Scrape statcast data
 }
 \examples{
 \dontrun{
-scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15", pit_bat = 'pitcher')
-scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15", pit_bat = 'batter')
+scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15")
+scrape_statcast(start_date = "2018-04-06", end_date = "2018-04-15")
 }
 }
