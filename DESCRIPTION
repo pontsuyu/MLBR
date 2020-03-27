@@ -12,7 +12,8 @@ Depends:
     data.table,
     magrittr,
     XML,
-    xml2
+    xml2,
+    foreach
 License: MIT
 BugReports: https://github.com/pontsuyu/statcastr/issues
 LazyData: true
