@@ -9,7 +9,7 @@
 #' @return Return a three dimensional array.
 #' @export
 #'
-get_snapshots <- function(data, interval = 0.01) {
+sc_snapshots <- function(data, interval = 0.01) {
   idx <- c(
     "release_pos_x", "release_pos_y", "release_pos_z",
     "vx0", "vy0", "vz0", "ax", "ay", "az"
@@ -21,7 +21,7 @@ get_snapshots <- function(data, interval = 0.01) {
   }
   data <- data %>% filter(complete.cases(.[, idx]))
   parameters <- data %>%
-    select_(.dots = idx) %>%
+    select(all_of(idx)) %>%
     purrr::map_dfc(as.numeric) %>%
     as.data.frame()
   # Figure out how long it takes each pitch to reach home plate

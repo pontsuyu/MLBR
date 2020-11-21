@@ -8,18 +8,17 @@
 #' @return Returns a list of boundaries for both right handed batters and left handed batters
 #' @export
 #'
-get_strikezones <- function(data) {
+sc_strikezones <- function(data) {
   idx <- c("sz_top", "sz_bot", "stand")
-  if (!all(idx %in% colnames(data))) {
+  if (!all(idx %in% colnames(data)))
     stop(paste0("'data' must have these columns: ", paste(idx, collapse = ", ")))
-  }
-  for (i in c("sz_top", "sz_bot")) data[, i] <- as.numeric(data[, i])
+  data$sz_top <- as.numeric(data$sz_top)
+  data$sz_bot <- as.numeric(data$sz_bot)
   bounds <- data %>%
     filter(complete.cases(.[, c("sz_top", "sz_bot")])) %>%
-    # mutate(sz_top = sz_top + sz_bot) %>%
     group_by(stand) %>%
     summarise(
-      Top = mean(sz_top) * 30.48,
+      Top = mean(sz_top) * 30.48, # feet tocm
       Bottom = mean(sz_bot) * 30.48
     ) %>%
     as.data.frame()
