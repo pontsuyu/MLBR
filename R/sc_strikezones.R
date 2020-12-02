@@ -18,7 +18,7 @@ sc_strikezones <- function(data) {
     filter(complete.cases(.[, c("sz_top", "sz_bot")])) %>%
     group_by(stand) %>%
     summarise(
-      Top = mean(sz_top) * 30.48, # feet tocm
+      Top = mean(sz_top) * 30.48, # feet to cm
       Bottom = mean(sz_bot) * 30.48
     ) %>%
     as.data.frame()

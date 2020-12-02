@@ -12,35 +12,27 @@
 #' @param point_alpha Alpha value whenever geom_point is used. Deaults to .75. Recommend .3 for density plots. To remove points on density points set use point_alpha = 0.
 #' @param point_size Set the size of geom_point if used.
 #' @param frame Variable to use as the frame argument if using gganimate to create animated plots. For density plots be sure your variable is a factor.
-#' @keywords MLB, sabermetrics, Statcast, ggplot2
-#' @importFrom ggplot2 ggplot geom_point geom_curve geom_segment coord_fixed theme stat_density2d xlim ylim scale_fill_continuous aes_string element_text scale_fill_manual aes
+#' 
+#' @import ggplot2
 #' @export
 #' @examples
 #' \dontrun{
 #' ggspraychart(df, x_value = "hc_x", y_value = "-hc_y", fill_value = "events")
 #' }
 
-ggspraychart <- function(data, x_value = "hc_x",
-                         y_value = "-hc_y",
-                         fill_value = NULL,
-                         fill_palette = NULL,
-                         fill_legend_title = NULL,
-                         density = FALSE,
-                         bin_size = 15,
-                         point_alpha = .75,
-                         point_size = 2,
-                         frame = NULL) {
+ggspraychart <- function(data, x_value = "hc_x", y_value = "-hc_y",
+                         fill_value = NULL, fill_palette = NULL,
+                         fill_legend_title = NULL, density = FALSE,
+                         bin_size = 15, point_alpha = .75,
+                         point_size = 2, frame = NULL) {
 
-  if(density == FALSE) {
-
+  if(!density) {
     if(is.null(fill_value)) {
-    plot <- ggplot(data = data, aes_string(x = x_value, y = y_value,
-                                           frame = frame)) +
+    plot <- ggplot(data = data, aes_string(x = x_value, y = y_value, frame = frame)) +
       geom_point(fill = "blue",
                  color = "grey20", alpha = point_alpha,
                  shape = 21, size = point_size, stroke = 1) +
-      xlim(0,250) +
-      ylim(-250, 0) +
+      xlim(0,250) + ylim(-250, 0) +
       geom_curve(x = 33, xend = 223, y = -100, yend = -100,
                  curvature = -.65) +
       geom_segment(x=128, xend = 33, y=-208, yend = -100) +
@@ -59,8 +51,7 @@ ggspraychart <- function(data, x_value = "hc_x",
       geom_point(aes_string(fill = fill_value),
                  color = "grey20", alpha = point_alpha, shape = 21,
                  size = point_size, stroke = 1) +
-      xlim(0,250) +
-      ylim(-250, 0) +
+      xlim(0,250) + ylim(-250, 0) +
       geom_curve(x = 33, xend = 223, y = -100, yend = -100,
                curvature = -.65) +
       geom_segment(x=128, xend = 33, y=-208, yend = -100) +
@@ -103,10 +94,8 @@ ggspraychart <- function(data, x_value = "hc_x",
   return(plot)
 }
 
-#' @importFrom ggplot2 %+replace% theme_minimal element_blank element_text
-
-theme_battedball_grey <- function(base_size = 12, base_family = "Helvetica") {
-  theme_minimal(base_size = base_size, base_family = base_family) %+replace%
+theme_battedball_grey <- function(base_size = 12) {
+  theme_minimal(base_size = base_size) %+replace%
     theme(
       axis.text = element_blank(),
       axis.title = element_blank(),

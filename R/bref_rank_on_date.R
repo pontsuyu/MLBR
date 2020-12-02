@@ -11,7 +11,7 @@
 #' @importFrom lubridate day month year
 #' @importFrom rvest html_text html_nodes
 #' @importFrom xml2 read_html
-#' @export
+#' 
 #' @examples
 #' \dontrun{
 #' bref_rank_on_date("2015-08-04", "AL East")
@@ -20,7 +20,6 @@
 bref_rank_on_date <- function(date, division, from = FALSE) {
   
   stopifnot(intersect(grepl("AL|NL", division), grepl("East|Central|West|Overall", division)))
-  message('Data courtesy of Baseball-Reference.com. Please consider supporting Baseball-Reference by signing up for a Stathead account: https://stathead.com')
   url <- paste0("http://www.baseball-reference.com/boxes",
                 "?year=", sprintf("%04i", lubridate::year(date)), "&month=",
                 sprintf("%02i", lubridate::month(date)), "&day=", sprintf("%02i", lubridate::day(date)))
@@ -61,7 +60,7 @@ bref_rank_on_date <- function(date, division, from = FALSE) {
 #' @importFrom highcharter hchart hc_title hc_subtitle hc_credits hc_yAxis hc_xAxis hc_add_theme hcaes hc_theme_smpl
 #' @importFrom pbapply pbsapply
 #' @importFrom tidyr separate
-#' @export
+#' 
 #' @examples
 #' \dontrun{
 #' bref_gamebehind_plot("2017-04-02","2017-04-10", "AL East")
