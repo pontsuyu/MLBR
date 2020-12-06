@@ -2,23 +2,20 @@
 #'
 #' @param Team The abbreviation used by Baseball-Reference.com for the team whose results you want to scrape.
 #' @param year Season for which you want to scrape the park factors.
-#' @importFrom dplyr filter_ rename filter
-#' @importFrom xml2 read_html
-#' @importFrom rvest html_table
-#'
+#' @import dplyr
+#' @export
 #' @examples
-#' bref_game_results("NYM", 2015)
-#' bref_game_results("TBR", 2008)
-bref_game_results <- function(Team, year) {
+#' bref_team_results("NYM", 2015)
+#' bref_team_results("TBR", 2008)
+bref_team_results <- function(Team, year) {
   url <- paste0(
     "https://www.baseball-reference.com/teams/", Team,
-    "/", year, "-schedule-scores.shtml"
-  )
+    "/", year, "-schedule-scores.shtml")
   data <- url %>%
-    read_html() %>%
-    html_nodes("table") %>%
+    xml2::read_html() %>%
+    rvest::html_nodes("table") %>%
     .[[length(.)]] %>%
-    html_table()
+    rvest::html_table()
   colnames(data) <- c(
     "Gm", "Date", "boxscore", "Tm", "Home_Away", "Opp", "Result", "R", "RA",
     "Inn", "Win_Lose", "Rank", "GB", "Win", "Loss", "Save",

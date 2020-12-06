@@ -29,7 +29,7 @@ statsapi_batting_orders <- function(game_pk) {
   home_players <- home_players %>%
     group_split(playerid) %>%
     map(~players(list = list, team = "home", playerid = .x$playerid)) %>% 
-    bind_rows() %>% 
+    do.call("rbind", .) %>% 
     mutate(batting_order = as.character(batting_order),
            batting_position_num = as.character(batting_position_num),
            team = "home",
@@ -40,7 +40,7 @@ statsapi_batting_orders <- function(game_pk) {
   away_players <- away_players %>%
     group_split(playerid) %>%
     map(~players(list = list, team = "away", playerid = .x$playerid)) %>% 
-    bind_rows() %>% 
+    do.call("rbind", .) %>% 
     mutate(batting_order = as.character(batting_order),
            batting_position_num = as.character(batting_position_num),
            team = "away",

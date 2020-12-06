@@ -133,23 +133,9 @@ sc_pbp <- function(start_date, end_date) {
   return(res_data)
 }
 
-#' Process Baseball Savant CSV payload
-#'
-#' This is a helper function for all scrape_statcast_savant functions.
-#' The function processes the initial csv payload acquired from
-#' baseballsavant to ensure consistency in formattting across downloads
-#' @param payload payload from a Baseball Savant request, e.g.
-#'
-#' @import dplyr
-#' 
-#' @examples
-#' \dontrun{
-#' sc_process_payload(payload)
-#' }
 sc_process_payload <- function(payload) {
   
   # Clean up formatting of Baseball Savant download
-  
   payload$game_date <- as.Date(payload$game_date, "%Y-%m-%d")
   payload$des <- as.character(payload$des)
   payload$game_pk <- as.character(payload$game_pk) %>% as.numeric()

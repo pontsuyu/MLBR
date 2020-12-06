@@ -73,8 +73,8 @@ fg_milb_batter_gamelog <- function(playerid, year) {
   # add playerid to payload
   payload <- payload %>%
     mutate(name = player_name,
-           minor_playerid = playerid) %>%
-    select(name, minor_playerid, everything())
+           playerid = playerid) %>%
+    select(name, playerid, everything())
   
   return(payload)
 }
@@ -140,8 +140,8 @@ fg_milb_pitcher_gamelog <- function(playerid, year) {
   # add playerid to payload
   payload <- payload %>%
     mutate(name = player_name,
-           minor_playerid = playerid) %>%
-    select(name, minor_playerid, everything())
+           playerid = playerid) %>%
+    select(name, playerid, everything())
   
   return(payload)
 }

@@ -1,6 +1,6 @@
 Package: mlbr
 Title: Functions for scraping and analyzing statcast data
-Version: 1.0.0
+Version: 0.1.0
 Author: Hiroyuki Tsuyuzaki <wu.pe.s2.47@gmail.com>
 Maintainer: Hiroyuki Tsuyuzaki <wu.pe.s2.47@gmail.com>
 Description: Functions for scraping and analyzing statcast data.
@@ -19,3 +19,4 @@ License: MIT
 BugReports: https://github.com/pontsuyu/mlbr/issues
 LazyData: true
 RoxygenNote: 7.1.0
+Encoding: UTF-8

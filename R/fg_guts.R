@@ -2,14 +2,12 @@
 #'
 #' @description This function allows you to scrape the historical, season-by-season wOBA and FIP constants and coefficients at FanGraphs.com.
 #' @param year Season for which you want to scrape the park factors.
-#' @keywords MLB, sabermetrics
-#' @importFrom rvest html_node
+#' 
+#' @import rvest
+#' @import dplyr
 #' @export
 #' @examples
-#' fg_guts("2018")
-
-# scrape historical FanGraphs Guts! table
-# wOBA and FIP coefficients and constants
+#' fg_guts(2018)
 fg_guts <- function(year) {
   woba_fip_cons <- read_html("http://www.fangraphs.com/guts.aspx?type=cn") %>%
     html_node(xpath = '//*[(@id = "GutsBoard1_dg1_ctl00")]') %>%

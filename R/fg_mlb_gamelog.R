@@ -7,9 +7,8 @@
 #' 
 #' @export
 #' @examples
-#' \dontrun{fg_gamelog(playerid = 104, year = 2006, "pitcher")}
-
-fg_gamelog <- function(playerid, year, pit_bat) {
+#' \dontrun{fg_mlb_gamelog(playerid = 104, year = 2006, "pitcher")}
+fg_mlb_gamelog <- function(playerid, year, pit_bat) {
   switch(pit_bat,
          pitcher = fg_pitcher_gamelog(playerid, year),
          batter = fg_batter_gamelog(playerid, year)
@@ -23,11 +22,11 @@ fg_gamelog <- function(playerid, year, pit_bat) {
 #' 
 #' @import dplyr
 #' @import rvest
-#' @export
+#'
 #' @examples
 #' \dontrun{fg_pitcher_gamelog(playerid = 104, year = 2006)}
 
-fg_pitcher_gamelog <- function(playerid, year = 2017) {
+fg_pitcher_gamelog <- function(playerid, year) {
   
   url <- paste0("http://www.fangraphs.com/statsd-legacy.aspx?playerid=", 
                 playerid, "&season=", year, "&position=P")
@@ -58,7 +57,16 @@ fg_pitcher_gamelog <- function(playerid, year = 2017) {
   payload$LOB_perc <- as.numeric(payload$LOB_perc)/100
   payload$GB_perc <- as.numeric(payload$GB_perc)/100
   payload$HR_FB <- as.numeric(payload$HR_FB)
-  
+  # extract player name
+  player_name <- xml2::read_html(url) %>%
+    html_nodes("h1") %>%
+    html_text()
+  # add playerid to payload
+  payload <- payload %>%
+    mutate(name = player_name,
+           playerid = playerid) %>%
+    select(name, playerid, everything())
+
   return(payload)
 }
 
@@ -70,7 +78,7 @@ fg_pitcher_gamelog <- function(playerid, year = 2017) {
 #' 
 #' @import dplyr
 #' @import rvest
-#' @export
+#'
 #' @examples
 #' \dontrun{fg_batter_gamelog(playerid = 6184, year = 2017)}
 
@@ -100,6 +108,15 @@ fg_batter_gamelog <- function(playerid, year) {
   
   payload$BB_perc <- as.numeric(payload$BB_perc)/100
   payload$K_perc <- as.numeric(payload$K_perc)/100
+  # extract player name
+  player_name <- xml2::read_html(url) %>%
+    html_nodes("h1") %>%
+    html_text()
+  # add playerid to payload
+  payload <- payload %>%
+    mutate(name = player_name,
+           playerid = playerid) %>%
+    select(name, playerid, everything())
   
   return(payload)
 }

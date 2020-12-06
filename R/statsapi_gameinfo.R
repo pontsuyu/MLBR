@@ -1,14 +1,14 @@
 #' Find game_pk values for professional baseball games (major and minor leagues)
 #' via the MLB api \url{http://statsapi.mlb.com/api/}
 #'
-#' @param date The date for which you want to find game_pk values for MLB games
+#' @param year The year for which you want to find game_pk values for MLB games
 #' @param level_ids A numeric vector with ids for each level where game_pks are
 #' desired. See below for a reference of level ids.
 #' @import dplyr
 #' @importFrom jsonlite fromJSON
 #' @return Returns a data frame that includes game_pk values and additional
 #' information for games scheduled or played
-#' requested
+#' 
 #' @section Level IDs:
 #'
 #' The following IDs can be passed to the level_ids argument:
@@ -24,19 +24,30 @@
 #' 17 = Winter League
 #' @export
 #'
-#' @examples \dontrun{statsapi_gameinfo("2019-04-29")}
+#' @examples \dontrun{statsapi_gameinfo(2018:2019, 1))}
 
-statsapi_gameinfo <- function(date, level_ids = 1) {
+statsapi_gameinfo <- function(year, level_ids = c(1,11:17,5442)) {
+  dates <- year %>% 
+    map(~as.Date(paste0(.x,"-01-01")) %>% 
+          seq.Date(by = "day", length.out = 365) %>% 
+          as.character()) %>% 
+    unlist()
   
+  res <- dates %>% 
+    map(~api_func(.x, level_ids)) %>% 
+    bind_rows()
+  
+  return(res)
+}
+
+api_func <- function(date, level_ids){
   api_call <- paste0("http://statsapi.mlb.com/api/v1/schedule?sportId=", 
                      paste(level_ids, collapse = ','), "&date=", date)
-  
-  payload <- jsonlite::fromJSON(api_call, flatten = TRUE)
-  
-  payload <- payload$dates$games %>%
-    as.data.frame() %>%
-    rename(game_pk = gamePk)
-  
-  return(payload)
-  
+  payload <- fromJSON(api_call, flatten = TRUE)
+  if(length(payload$dates)!=0){
+    gameinfo <- payload$dates$games %>%
+      as.data.frame() %>%
+      rename(game_pk = gamePk)
+    return(gameinfo)
+  }
 }
