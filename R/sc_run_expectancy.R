@@ -9,9 +9,9 @@
 #' @importFrom stringr str_count
 #' @export
 #' @examples
-#' \dontrun{run_expectancy(df, level = "plate appearances")}
+#' \dontrun{sc_run_expectancy(df, level = "PA")}
 
-run_expectancy <- function(df, level) {
+sc_run_expectancy <- function(df, level) {
   # single_outs <- c("strikeout", "caught_stealing_2b", "pickoff_caught_stealing_2b",
   #                  "other_out", "caught_stealing_3b", "caught_stealing_home",
   #                  "field_out", "force_out", "pickoff_1b", "batter_interference",
