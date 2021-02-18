@@ -18,5 +18,5 @@ Depends:
 License: MIT
 BugReports: https://github.com/pontsuyu/mlbr/issues
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Encoding: UTF-8
